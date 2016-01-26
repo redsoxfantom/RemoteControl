@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RemoteControlServer.Shell.Commands;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,11 @@ namespace RemoteControlServer.Shell
     public class ShellCommandProcessor
     {
         private static ShellCommandProcessor mInstance = null;
+
+        /// <summary>
+        /// Maps an input string to it's expected command
+        /// </summary>
+        private Dictionary<String, ICommand> mLoadedCommands;
 
         public ShellCommandProcessor Instance
         {
