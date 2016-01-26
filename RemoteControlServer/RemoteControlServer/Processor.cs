@@ -8,5 +8,20 @@ namespace RemoteControlServer
 {
     public class Processor
     {
+        private Boolean done;
+
+        public Processor(String[] args)
+        {
+            done = false;
+        }
+
+        public void Run()
+        {
+            while(!done)
+            {
+                Console.Write("$> ");
+                String commandInput = Console.ReadLine();
+            }
+        }
     }
 }

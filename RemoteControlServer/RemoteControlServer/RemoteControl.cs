@@ -15,6 +15,14 @@ namespace RemoteControlServer
         static void Main(string[] args)
         {
             XmlConfigurator.Configure();
+
+            log.InfoFormat("Initializing with args [{0}]", String.Join(",", args));
+            var proc = new Processor(args);
+
+            log.Info("Beginning execution...");
+            proc.Run();
+
+            log.Info("Bye");
         }
     }
 }
