@@ -51,19 +51,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Implementers\IImplementer.cs" />
+    <Compile Include="Listeners\IListener.cs" />
     <Compile Include="Processor.cs" />
     <Compile Include="RemoteControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Translators\ITranslator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Implementers\" />
-    <Folder Include="Listeners\" />
-    <Folder Include="Translators\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
