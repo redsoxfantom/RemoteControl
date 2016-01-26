@@ -9,6 +9,7 @@ namespace RemoteControlServer.Shell.Commands
     /// <summary>
     /// Class executed when user types "done"
     /// </summary>
+    [ShellInput("exit")]
     public class ExitCommand : ICommand
     {
         public void Execute()

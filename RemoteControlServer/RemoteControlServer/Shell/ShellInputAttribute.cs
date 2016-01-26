@@ -13,5 +13,10 @@ namespace RemoteControlServer.Shell
         /// The command string that will cause this command to execute. Must be unique per command
         /// </summary>
         public String Command { get; set; }
+
+        public ShellInputAttribute(String command)
+        {
+            Command = command;
+        }
     }
 }
