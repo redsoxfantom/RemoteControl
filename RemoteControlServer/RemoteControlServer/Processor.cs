@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 namespace RemoteControlServer
 {
-    class Program
+    public class Processor
     {
-        static void Main(string[] args)
-        {
-        }
     }
 }
