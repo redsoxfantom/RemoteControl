@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RemoteControlServer.Shell
+namespace RemoteControlServer.Shell.Commands
 {
     /// <summary>
     /// Class executed when user types "done"
