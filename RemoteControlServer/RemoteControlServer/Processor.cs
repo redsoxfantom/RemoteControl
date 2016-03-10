@@ -40,6 +40,7 @@ namespace RemoteControlServer
 
         public void Shutdown()
         {
+            StopBeacon();
             done = true;
         }
 
