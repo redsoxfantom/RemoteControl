@@ -1,10 +1,12 @@
 ﻿using log4net;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace RemoteControlServer.Networking
@@ -12,6 +14,7 @@ namespace RemoteControlServer.Networking
     public class BeaconTransmitter
     {
         private UdpClient client;
+        IPEndPoint broadcastAddress;
         private String ipAddress;
         private bool initialized;
         private bool isTransmitting;
@@ -21,7 +24,7 @@ namespace RemoteControlServer.Networking
         {
             initialized = false;
             isTransmitting = false;
-            client = new UdpClient();
+            broadcastAddress = new IPEndPoint(IPAddress.Broadcast, 50000);
 
             try
             {
@@ -51,7 +54,11 @@ namespace RemoteControlServer.Networking
 
         public void StopTransmitting()
         {
-            isTransmitting = false;
+            if (isTransmitting)
+            {
+                log.Info("Beacon stopping transmission");
+                isTransmitting = false;
+            }
         }
 
         public void StartTransmitting(String friendlyName)
@@ -59,8 +66,23 @@ namespace RemoteControlServer.Networking
             if(initialized)
             {
                 log.InfoFormat("Beacon transmitting IP Address {0} and friendly name {1}",ipAddress,friendlyName);
-
                 isTransmitting = true;
+
+                BeaconPacket packet = new BeaconPacket();
+                packet.friendlyName = friendlyName;
+                packet.ipAddress = ipAddress;
+                String packetStr = JsonConvert.SerializeObject(packet);
+                byte[] packetBytes = Encoding.ASCII.GetBytes(packetStr);
+
+                Task.Factory.StartNew(() => {
+                    client = new UdpClient();
+                    while(isTransmitting)
+                    {
+                        client.Send(packetBytes, packetBytes.Length, broadcastAddress);
+                        Thread.Sleep(2500);
+                    }
+                    client.Close();
+                });
             }
         }
     }
