@@ -1,4 +1,5 @@
 ﻿using log4net;
+using RemoteControlServer.Networking;
 using RemoteControlServer.Shell;
 using System;
 using System.Collections.Generic;
@@ -12,12 +13,14 @@ namespace RemoteControlServer
     {
         private Boolean done;
         private ShellCommandProcessor mProc;
+        private BeaconTransmitter mTransmitter;
         private static readonly ILog log = LogManager.GetLogger("Processor");
 
         public Processor(String[] args)
         {
             done = false;
             mProc = ShellCommandProcessor.Instance;
+            mTransmitter = new BeaconTransmitter();
         }
 
         public void Run()
