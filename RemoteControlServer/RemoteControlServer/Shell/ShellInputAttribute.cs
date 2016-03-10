@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RemoteControlServer.Shell
 {
-    [AttributeUsage(AttributeTargets.Class)]
+    [AttributeUsage(AttributeTargets.Class,AllowMultiple =true)]
     public class ShellInputAttribute : Attribute
     {
         /// <summary>
