@@ -15,5 +15,6 @@ namespace RemoteControlServer.Networking
         {
             client = new UdpClient();
         }
+        
     }
 }
