@@ -53,8 +53,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Implementers\IImplementer.cs" />
-    <Compile Include="Listeners\IListener.cs" />
     <Compile Include="Processor.cs" />
     <Compile Include="RemoteControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -62,7 +60,6 @@
     <Compile Include="Shell\Commands\ExitCommand.cs" />
     <Compile Include="Shell\Commands\ICommand.cs" />
     <Compile Include="Shell\ShellInputAttribute.cs" />
-    <Compile Include="Translators\ITranslator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
