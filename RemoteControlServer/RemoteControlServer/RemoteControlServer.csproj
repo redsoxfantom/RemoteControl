@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Networking\BeaconTransmitter.cs" />
     <Compile Include="Processor.cs" />
     <Compile Include="RemoteControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
