@@ -58,6 +58,8 @@ namespace RemoteControlServer.Networking
         {
             if(initialized)
             {
+                log.InfoFormat("Beacon transmitting IP Address {0} and friendly name {1}",ipAddress,friendlyName);
+
                 isTransmitting = true;
             }
         }

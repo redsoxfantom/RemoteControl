@@ -12,20 +12,27 @@ namespace RemoteControlServer.Shell.Commands
     {
         public void Execute(Processor processor, params string[] parameters)
         {
-            if(parameters[0].Equals("start",StringComparison.InvariantCultureIgnoreCase))
+            if (parameters.Length > 0)
             {
-                if(parameters.Length > 1)
+                if (parameters[0].Equals("start", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    processor.StartBeacon(parameters[1]);
+                    if (parameters.Length > 1)
+                    {
+                        processor.StartBeacon(parameters[1]);
+                    }
+                    else
+                    {
+                        processor.StartBeacon();
+                    }
                 }
-                else
+                else if (parameters[0].Equals("stop", StringComparison.InvariantCultureIgnoreCase))
                 {
-                    Console.WriteLine("Need to define a friendly name for the server!");
+                    processor.StopBeacon();
                 }
             }
-            else if (parameters[0].Equals("stop", StringComparison.InvariantCultureIgnoreCase))
+            else
             {
-                processor.StopBeacon();
+                Console.WriteLine("Parameters: start/stop [friendly name]");
             }
         }
     }
