@@ -42,5 +42,27 @@ namespace RemoteControlServer
         {
             done = true;
         }
+
+        public void StartBeacon(String friendlyName)
+        {
+            if(mTransmitter.GetIsTransmitting())
+            {
+                log.Info("Beacon transmitter was already running, shutting down");
+                mTransmitter.StopTransmitting();
+            }
+            mTransmitter.StartTransmitting(friendlyName);
+        }
+
+        public void StopBeacon()
+        {
+            if (mTransmitter.GetIsTransmitting())
+            {
+                mTransmitter.StopTransmitting();
+            }
+            else
+            {
+                log.Info("Beacon is not transmitting");
+            }
+        }
     }
 }

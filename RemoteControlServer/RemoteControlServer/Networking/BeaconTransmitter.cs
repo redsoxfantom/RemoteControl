@@ -14,11 +14,13 @@ namespace RemoteControlServer.Networking
         private UdpClient client;
         private String ipAddress;
         private bool initialized;
+        private bool isTransmitting;
         private static readonly ILog log = LogManager.GetLogger("BeaconTransmitter");
 
         public BeaconTransmitter()
         {
             initialized = false;
+            isTransmitting = false;
             client = new UdpClient();
 
             try
@@ -42,5 +44,22 @@ namespace RemoteControlServer.Networking
             }
         }
         
+        public bool GetIsTransmitting()
+        {
+            return isTransmitting;
+        }
+
+        public void StopTransmitting()
+        {
+            isTransmitting = false;
+        }
+
+        public void StartTransmitting(String friendlyName)
+        {
+            if(initialized)
+            {
+                isTransmitting = true;
+            }
+        }
     }
 }
