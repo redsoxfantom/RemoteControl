@@ -11,6 +11,6 @@ namespace RemoteControlServer.Shell.Commands
     /// </summary>
     interface ICommand
     {
-        void Execute();
+        void Execute(Processor processor, params string[] parameters);
     }
 }

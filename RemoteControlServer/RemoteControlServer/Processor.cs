@@ -24,7 +24,16 @@ namespace RemoteControlServer
             {
                 Console.Write("$> ");
                 String commandInput = Console.ReadLine();
+                String[] splitInput = commandInput.Split(' ');
+
+                // Send the command to the command processor
+                mProc.ProcessCommand(this, splitInput[0], splitInput.Skip(1).ToArray());
             }
+        }
+
+        public void Shutdown()
+        {
+            done = true;
         }
     }
 }

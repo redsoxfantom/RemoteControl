@@ -12,9 +12,9 @@ namespace RemoteControlServer.Shell.Commands
     [ShellInput("exit")]
     public class ExitCommand : ICommand
     {
-        public void Execute()
+        public void Execute(Processor processor, params string[] parameters)
         {
-            throw new NotImplementedException();
+
         }
     }
 }

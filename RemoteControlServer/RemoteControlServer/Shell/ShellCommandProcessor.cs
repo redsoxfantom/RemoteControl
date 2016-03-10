@@ -59,9 +59,16 @@ namespace RemoteControlServer.Shell
             }
         }
 
-        public void ProcessCommand(String command)
+        public void ProcessCommand(Processor processor, String command, params string[] parameters)
         {
-
+            if(mLoadedCommands.ContainsKey(command))
+            {
+                mLoadedCommands[command].Execute(processor, parameters);
+            }
+            else
+            {
+                log.WarnFormat("Command {0} not found",command);
+            }
         }
     }
 }
