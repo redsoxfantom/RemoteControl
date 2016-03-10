@@ -14,7 +14,7 @@ namespace RemoteControlServer.Shell.Commands
     {
         public void Execute(Processor processor, params string[] parameters)
         {
-
+            processor.Shutdown();
         }
     }
 }

@@ -15,7 +15,7 @@ namespace RemoteControlServer.Shell
     public class ShellCommandProcessor
     {
         private static ShellCommandProcessor mInstance = null;
-        private static readonly ILog log = LogManager.GetLogger("ShellCommandProcessor");
+        private static readonly ILog log = LogManager.GetLogger("");
 
         /// <summary>
         /// Maps an input string to it's expected command

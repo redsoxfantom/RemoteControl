@@ -1,4 +1,5 @@
-﻿using RemoteControlServer.Shell;
+﻿using log4net;
+using RemoteControlServer.Shell;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace RemoteControlServer
     {
         private Boolean done;
         private ShellCommandProcessor mProc;
+        private static readonly ILog log = LogManager.GetLogger("Processor");
 
         public Processor(String[] args)
         {
@@ -29,6 +31,8 @@ namespace RemoteControlServer
                 // Send the command to the command processor
                 mProc.ProcessCommand(this, splitInput[0], splitInput.Skip(1).ToArray());
             }
+
+            log.Info("Bye");
         }
 
         public void Shutdown()
