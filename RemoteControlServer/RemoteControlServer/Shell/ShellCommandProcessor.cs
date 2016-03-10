@@ -15,7 +15,7 @@ namespace RemoteControlServer.Shell
     public class ShellCommandProcessor
     {
         private static ShellCommandProcessor mInstance = null;
-        private static readonly ILog log = LogManager.GetLogger("");
+        private static readonly ILog log = LogManager.GetLogger("ShellInputProcessor");
 
         /// <summary>
         /// Maps an input string to it's expected command
@@ -67,7 +67,7 @@ namespace RemoteControlServer.Shell
             }
             else
             {
-                log.WarnFormat("Command {0} not found",command);
+                Console.WriteLine(String.Format("Command {0} not found",command));
             }
         }
     }

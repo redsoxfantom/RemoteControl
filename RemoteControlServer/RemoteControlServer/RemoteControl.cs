@@ -22,7 +22,7 @@ namespace RemoteControlServer
             log.Info("Beginning execution...");
             proc.Run();
 
-            log.Info("Bye");
+            log.Info("Shutdown");
         }
     }
 }
