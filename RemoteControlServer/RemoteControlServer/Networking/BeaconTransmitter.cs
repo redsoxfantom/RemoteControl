@@ -13,7 +13,7 @@ namespace RemoteControlServer.Networking
 {
     public class BeaconTransmitter
     {
-        private UdpClient client;
+        private UdpClient server;
         IPEndPoint broadcastAddress;
         private String ipAddress;
         private bool initialized;
@@ -74,17 +74,17 @@ namespace RemoteControlServer.Networking
                 packet.count = 0;
 
                 Task.Factory.StartNew(() => {
-                    client = new UdpClient();
+                    server = new UdpClient();
                     while(isTransmitting)
                     {
                         packet.count++;
                         String packetStr = JsonConvert.SerializeObject(packet);
                         byte[] packetBytes = Encoding.ASCII.GetBytes(packetStr);
                         
-                        client.Send(packetBytes, packetBytes.Length, broadcastAddress);
+                        server.Send(packetBytes, packetBytes.Length, broadcastAddress);
                         Thread.Sleep(2500);
                     }
-                    client.Close();
+                    server.Close();
                 });
             }
         }
