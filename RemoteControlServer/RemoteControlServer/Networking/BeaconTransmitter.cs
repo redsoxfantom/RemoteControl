@@ -71,13 +71,16 @@ namespace RemoteControlServer.Networking
                 BeaconPacket packet = new BeaconPacket();
                 packet.friendlyName = friendlyName;
                 packet.ipAddress = ipAddress;
-                String packetStr = JsonConvert.SerializeObject(packet);
-                byte[] packetBytes = Encoding.ASCII.GetBytes(packetStr);
+                packet.count = 0;
 
                 Task.Factory.StartNew(() => {
                     client = new UdpClient();
                     while(isTransmitting)
                     {
+                        packet.count++;
+                        String packetStr = JsonConvert.SerializeObject(packet);
+                        byte[] packetBytes = Encoding.ASCII.GetBytes(packetStr);
+                        
                         client.Send(packetBytes, packetBytes.Length, broadcastAddress);
                         Thread.Sleep(2500);
                     }

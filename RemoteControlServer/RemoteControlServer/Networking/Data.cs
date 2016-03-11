@@ -10,5 +10,6 @@ namespace RemoteControlServer.Networking
     {
         public String ipAddress { get; set; }
         public String friendlyName { get; set; }
+        public int count { get; set; }
     }
 }
