@@ -12,14 +12,14 @@ namespace RemoteControlServer
     public class Processor
     {
         private Boolean done;
-        private ShellCommandProcessor mProc;
+        public ShellCommandProcessor ShellProcessor { get; }
         private BeaconTransmitter mTransmitter;
         private static readonly ILog log = LogManager.GetLogger("Processor");
 
         public Processor(String[] args)
         {
             done = false;
-            mProc = ShellCommandProcessor.Instance;
+            ShellProcessor = ShellCommandProcessor.Instance;
             mTransmitter = new BeaconTransmitter();
         }
 
@@ -32,7 +32,7 @@ namespace RemoteControlServer
                 String[] splitInput = commandInput.Split(' ');
 
                 // Send the command to the command processor
-                mProc.ProcessCommand(this, splitInput[0], splitInput.Skip(1).ToArray());
+                ShellProcessor.ProcessCommand(this, splitInput[0], splitInput.Skip(1).ToArray());
             }
 
             log.Info("Bye");

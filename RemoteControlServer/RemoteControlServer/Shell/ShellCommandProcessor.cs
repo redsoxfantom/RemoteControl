@@ -70,5 +70,10 @@ namespace RemoteControlServer.Shell
                 Console.WriteLine(String.Format("Command {0} not found",command));
             }
         }
+
+        public void ShowHelp(string command = null)
+        {
+
+        }
     }
 }

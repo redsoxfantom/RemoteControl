@@ -13,7 +13,14 @@ namespace RemoteControlServer.Shell.Commands
     {
         public void Execute(Processor processor, params string[] parameters)
         {
-            throw new NotImplementedException();
+            if(parameters.Length > 0)
+            {
+                processor.ShellProcessor.ShowHelp(parameters[0]);
+            }
+            else
+            {
+                processor.ShellProcessor.ShowHelp();
+            }
         }
 
         public string ShowLongHelp()
