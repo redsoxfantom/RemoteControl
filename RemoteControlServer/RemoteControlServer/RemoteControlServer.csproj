@@ -59,6 +59,7 @@
     <Compile Include="RemoteControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shell\Commands\BeaconCommand.cs" />
+    <Compile Include="Shell\Commands\HelpCommand.cs" />
     <Compile Include="Shell\ShellCommandProcessor.cs" />
     <Compile Include="Shell\Commands\ExitCommand.cs" />
     <Compile Include="Shell\Commands\ICommand.cs" />
