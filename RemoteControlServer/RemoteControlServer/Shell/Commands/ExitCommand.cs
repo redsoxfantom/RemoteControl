@@ -1,4 +1,5 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,17 @@ namespace RemoteControlServer.Shell.Commands
         public void Execute(Processor processor, params string[] parameters)
         {
             processor.Shutdown();
+        }
+
+        public string ShowLongHelp()
+        {
+            return "Shuts down the remote control server\n" +
+                   "Parameters: None";
+        }
+
+        public string ShowShortHelp()
+        {
+            return "Shuts down the remote control server";
         }
     }
 }

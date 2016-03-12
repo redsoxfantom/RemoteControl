@@ -35,5 +35,19 @@ namespace RemoteControlServer.Shell.Commands
                 Console.WriteLine("Parameters: start/stop [friendly name]");
             }
         }
+
+        public string ShowLongHelp()
+        {
+            return "Turns on and off the beacon. The beacon notifies any remote control apps within range that this server can be connected to\n"+
+                   "Parameters: start/stop [friendly name]\n"+
+                   "    start/stop - turns the server on and off"+
+                   "    [friendly name] - optional parameter that designates a name for this server. This name will appear on any remote control apps within range.\n"+
+                   "        If no name is designated, friendly name will be \"DefaultName\"";
+        }
+
+        public string ShowShortHelp()
+        {
+            return "Turns on and off the beacon. The beacon notifies any remote control apps within range that this server can be connected to\n";
+        }
     }
 }

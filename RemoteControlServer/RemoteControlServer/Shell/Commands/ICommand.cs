@@ -12,5 +12,7 @@ namespace RemoteControlServer.Shell.Commands
     interface ICommand
     {
         void Execute(Processor processor, params string[] parameters);
+        String ShowLongHelp();
+        String ShowShortHelp();
     }
 }
