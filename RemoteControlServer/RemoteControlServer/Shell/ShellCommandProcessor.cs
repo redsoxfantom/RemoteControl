@@ -73,7 +73,17 @@ namespace RemoteControlServer.Shell
 
         public void ShowHelp(string command = null)
         {
-
+            if(command != null)
+            {
+                if(mLoadedCommands.ContainsKey(command))
+                {
+                    Console.WriteLine(mLoadedCommands[command].ShowLongHelp());
+                }
+                else
+                {
+                    Console.WriteLine(String.Format("Command {0} not found", command));
+                }
+            }
         }
     }
 }
