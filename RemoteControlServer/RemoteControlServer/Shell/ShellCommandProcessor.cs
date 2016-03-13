@@ -22,6 +22,11 @@ namespace RemoteControlServer.Shell
         /// </summary>
         private Dictionary<String, ICommand> mLoadedCommands;
 
+        /// <summary>
+        /// Maps a command object to all command strings that invoke it
+        /// </summary>
+        private Dictionary<ICommand, List<String>> mCommandStrings;
+
         public static ShellCommandProcessor Instance
         {
             get
@@ -36,6 +41,7 @@ namespace RemoteControlServer.Shell
         private ShellCommandProcessor()
         {
             mLoadedCommands = new Dictionary<string, ICommand>();
+            mCommandStrings = new Dictionary<ICommand, List<string>>();
 
             // First, get all ICommands that have a ShellCommand attribute
             var commands = Assembly.GetExecutingAssembly().GetTypes().Where((type) => {
@@ -56,6 +62,7 @@ namespace RemoteControlServer.Shell
                 {
                     mLoadedCommands.Add(cmdAttr, cmd);
                 }
+                mCommandStrings.Add(cmd, attr);
             }
         }
 
@@ -82,6 +89,14 @@ namespace RemoteControlServer.Shell
                 else
                 {
                     Console.WriteLine(String.Format("Command {0} not found", command));
+                }
+            }
+            else
+            {
+                foreach(var cmd in mCommandStrings.Keys)
+                {
+                    var cmdStrings = mCommandStrings[cmd];
+                    Console.WriteLine(String.Format("{0} - {1}",String.Join(",",cmdStrings),cmd.ShowShortHelp()));
                 }
             }
         }
