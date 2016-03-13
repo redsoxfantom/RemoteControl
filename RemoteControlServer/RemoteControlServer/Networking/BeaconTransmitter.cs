@@ -14,7 +14,8 @@ namespace RemoteControlServer.Networking
     public class BeaconTransmitter
     {
         private UdpClient server;
-        IPEndPoint broadcastAddress;
+        IPEndPoint beaconEndpoint;
+        IPAddress beaconAddress;
         private String ipAddress;
         private bool initialized;
         private bool isTransmitting;
@@ -24,7 +25,8 @@ namespace RemoteControlServer.Networking
         {
             initialized = false;
             isTransmitting = false;
-            broadcastAddress = new IPEndPoint(IPAddress.Broadcast, 50000);
+            beaconAddress = IPAddress.Parse("224.0.0.1");
+            beaconEndpoint = new IPEndPoint(beaconAddress, 50000);
 
             try
             {
@@ -74,14 +76,16 @@ namespace RemoteControlServer.Networking
                 packet.count = 0;
 
                 Task.Factory.StartNew(() => {
-                    server = new UdpClient();
+                    server = new UdpClient(50000);
+                    server.JoinMulticastGroup(beaconAddress);
+
                     while(isTransmitting)
                     {
                         packet.count++;
                         String packetStr = JsonConvert.SerializeObject(packet);
                         byte[] packetBytes = Encoding.ASCII.GetBytes(packetStr);
                         
-                        server.Send(packetBytes, packetBytes.Length, broadcastAddress);
+                        server.Send(packetBytes, packetBytes.Length, beaconEndpoint);
                         Thread.Sleep(2500);
                     }
                     server.Close();
