@@ -86,7 +86,7 @@ namespace RemoteControlServer.Networking
                         byte[] packetBytes = Encoding.ASCII.GetBytes(packetStr);
                         
                         server.Send(packetBytes, packetBytes.Length, beaconEndpoint);
-                        Thread.Sleep(2500);
+                        Thread.Sleep(1500);
                     }
                     server.Close();
                 });
