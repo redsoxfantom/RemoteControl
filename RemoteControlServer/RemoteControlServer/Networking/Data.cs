@@ -12,4 +12,16 @@ namespace RemoteControlServer.Networking
         public String friendlyName { get; set; }
         public int count { get; set; }
     }
+
+    public class ConnectionRequest
+    {
+        public String ipAddress { get; set; }
+    }
+
+    public class ConnectionResponse
+    {
+        public int screenWidth { get; set; }
+        public int screenHeight { get; set; }
+        public String keyboardLocale { get; set; }
+    }
 }
