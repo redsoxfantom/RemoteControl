@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Networking\BeaconTransmitter.cs" />
+    <Compile Include="Networking\ConnectionListener.cs" />
     <Compile Include="Networking\Data.cs" />
     <Compile Include="Processor.cs" />
     <Compile Include="RemoteControl.cs" />
