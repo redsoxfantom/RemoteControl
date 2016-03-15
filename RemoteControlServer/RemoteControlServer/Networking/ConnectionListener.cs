@@ -12,6 +12,7 @@ namespace RemoteControlServer.Networking
 {
     public class ConnectionListener
     {
+        private TcpListener listener;
         private TcpClient client;
         private IPEndPoint connectionEndpoint;
         private IPAddress connectionIp = IPAddress.Any;
@@ -21,13 +22,16 @@ namespace RemoteControlServer.Networking
         public ConnectionListener()
         {
             connectionEndpoint = new IPEndPoint(connectionIp, 50001);
+            listener = new TcpListener(connectionEndpoint);
         }
 
         public void StartListening()
         {
+            log.Info("Connection Listener started");
+
             Task.Factory.StartNew(()=>{
-                log.Info("Connection Listener started");
-                client = new TcpClient(connectionEndpoint);
+                listener.Start();
+                client = listener.AcceptTcpClient(); // Wait for a client to connect
                 client.ReceiveTimeout = 1000;
                 StreamReader clientReader = new StreamReader(client.GetStream());
                 isListening = true;
@@ -51,6 +55,7 @@ namespace RemoteControlServer.Networking
         public void StopListening()
         {
             isListening = false;
+            listener.Stop();
             log.Info("Connection Listener stopped");
         }
     }

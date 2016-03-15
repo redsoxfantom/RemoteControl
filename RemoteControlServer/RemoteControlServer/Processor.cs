@@ -13,6 +13,7 @@ namespace RemoteControlServer
     {
         private Boolean done;
         public ShellCommandProcessor ShellProcessor { get; }
+        private ConnectionListener mConnListener;
         private BeaconTransmitter mTransmitter;
         private static readonly ILog log = LogManager.GetLogger("Processor");
 
@@ -21,10 +22,12 @@ namespace RemoteControlServer
             done = false;
             ShellProcessor = ShellCommandProcessor.Instance;
             mTransmitter = new BeaconTransmitter();
+            mConnListener = new ConnectionListener();
         }
 
         public void Run()
         {
+            mConnListener.StartListening();
             while(!done)
             {
                 Console.Write("$> ");
@@ -40,6 +43,7 @@ namespace RemoteControlServer
 
         public void Shutdown()
         {
+            mConnListener.StopListening();
             StopBeacon();
             done = true;
         }
