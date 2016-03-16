@@ -31,18 +31,16 @@ namespace RemoteControlServer.Networking
 
             Task.Factory.StartNew(()=>{
                 listener.Start();
-                client = listener.AcceptTcpClient(); // Wait for a client to connect
-                log.Info("Client Connected");
-                client.ReceiveTimeout = 1000;
-                StreamReader clientReader = new StreamReader(client.GetStream());
                 isListening = true;
 
                 while(isListening)
                 {
                     try
                     {
-                        String connectionAttempt = clientReader.ReadLine();
-                        log.InfoFormat("Got message {0}", connectionAttempt);
+                        client = listener.AcceptTcpClient(); // Wait for a client to connect
+                        log.Info("Client Connected");
+                        client.ReceiveTimeout = 1000;
+                        StreamWriter clientWriter = new StreamWriter(client.GetStream());
                     }
                     catch(Exception)
                     {}
