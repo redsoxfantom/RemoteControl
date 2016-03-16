@@ -1,12 +1,15 @@
 ﻿using log4net;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace RemoteControlServer.Networking
 {
@@ -41,9 +44,18 @@ namespace RemoteControlServer.Networking
                         log.Info("Client Connected");
                         client.ReceiveTimeout = 1000;
                         StreamWriter clientWriter = new StreamWriter(client.GetStream());
+
+                        ConnectionResponse resp = new ConnectionResponse();
+                        resp.screenWidth = (int)SystemParameters.PrimaryScreenWidth;
+                        resp.screenHeight = (int)SystemParameters.PrimaryScreenHeight;
+                        resp.keyboardLocale = CultureInfo.CurrentUICulture.DisplayName;
+                        String responseString = JsonConvert.SerializeObject(resp);
+                        clientWriter.WriteLine(responseString);
                     }
-                    catch(Exception)
-                    {}
+                    catch(Exception ex)
+                    {
+                        log.Error("Failed to listen for connections", ex);
+                    }
                 }
 
                 log.InfoFormat("Shutting down connectionListener");
