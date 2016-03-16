@@ -32,6 +32,7 @@ namespace RemoteControlServer.Networking
             Task.Factory.StartNew(()=>{
                 listener.Start();
                 client = listener.AcceptTcpClient(); // Wait for a client to connect
+                log.Info("Client Connected");
                 client.ReceiveTimeout = 1000;
                 StreamReader clientReader = new StreamReader(client.GetStream());
                 isListening = true;
