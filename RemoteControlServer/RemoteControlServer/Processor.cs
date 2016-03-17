@@ -48,7 +48,7 @@ namespace RemoteControlServer
             done = true;
         }
 
-        public void StartBeacon(String friendlyName = "DefaultName")
+        public void StartBeacon(String friendlyName = null)
         {
             if(mTransmitter.GetIsTransmitting())
             {
