@@ -28,6 +28,7 @@ namespace RemoteControlServer
         public void Run()
         {
             mConnListener.StartListening();
+            StartBeacon();
             while(!done)
             {
                 Console.Write("$> ");
