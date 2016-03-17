@@ -20,6 +20,7 @@ namespace RemoteControlServer.Networking
         private bool initialized;
         private bool isTransmitting;
         private static readonly ILog log = LogManager.GetLogger("BeaconTransmitter");
+        private String defaultName;
 
         public BeaconTransmitter()
         {
@@ -30,8 +31,10 @@ namespace RemoteControlServer.Networking
 
             try
             {
+                // Get this computer's host name
+                defaultName = Dns.GetHostName();
                 // Get the local IP address
-                var host = Dns.GetHostEntry(Dns.GetHostName());
+                var host = Dns.GetHostEntry(defaultName);
                 foreach (var ip in host.AddressList)
                 {
                     if (ip.AddressFamily == AddressFamily.InterNetwork)
@@ -39,7 +42,7 @@ namespace RemoteControlServer.Networking
                         ipAddress = ip.ToString();
                     }
                 }
-                log.InfoFormat("Beacon transmitter initialized with ip address {0}", ipAddress);
+                log.InfoFormat("Beacon transmitter initialized with ip address {0} and default name {1}", ipAddress,defaultName);
 
                 initialized = true;
             }
@@ -71,7 +74,14 @@ namespace RemoteControlServer.Networking
                 isTransmitting = true;
 
                 BeaconPacket packet = new BeaconPacket();
-                packet.friendlyName = friendlyName;
+                if(friendlyName != null)
+                {
+                    packet.friendlyName = friendlyName;
+                }
+                else
+                {
+                    packet.friendlyName = defaultName;
+                }
                 packet.ipAddress = ipAddress;
                 packet.count = 0;
 
