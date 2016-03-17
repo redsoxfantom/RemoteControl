@@ -42,7 +42,6 @@ namespace RemoteControlServer.Networking
                     {
                         client = listener.AcceptTcpClient(); // Wait for a client to connect
                         log.Info("Client Connected");
-                        client.ReceiveTimeout = 1000;
                         StreamWriter clientWriter = new StreamWriter(client.GetStream());
 
                         // Create and send a response packet
