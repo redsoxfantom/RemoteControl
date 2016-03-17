@@ -45,16 +45,25 @@ namespace RemoteControlServer.Networking
                         client.ReceiveTimeout = 1000;
                         StreamWriter clientWriter = new StreamWriter(client.GetStream());
 
+                        // Create and send a response packet
                         ConnectionResponse resp = new ConnectionResponse();
                         resp.screenWidth = (int)SystemParameters.PrimaryScreenWidth;
                         resp.screenHeight = (int)SystemParameters.PrimaryScreenHeight;
                         resp.keyboardLocale = CultureInfo.CurrentUICulture.DisplayName;
                         String responseString = JsonConvert.SerializeObject(resp);
                         clientWriter.WriteLine(responseString);
+                        clientWriter.Flush();
                     }
                     catch(Exception ex)
                     {
                         log.Error("Failed to listen for connections", ex);
+                    }
+                    finally
+                    {
+                        if(client != null)
+                        {
+                            client.Close();
+                        }
                     }
                 }
 
