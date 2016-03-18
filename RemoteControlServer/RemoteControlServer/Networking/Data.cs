@@ -19,4 +19,15 @@ namespace RemoteControlServer.Networking
         public int screenHeight { get; set; }
         public String keyboardLocale { get; set; }
     }
+    
+    public abstract class Command
+    {
+        
+    }
+    
+    public class MouseCommand : Command
+    {
+        public float x { get; set; }
+        public float y { get; set; }
+    }
 }
