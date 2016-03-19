@@ -70,9 +70,6 @@ namespace RemoteControlServer.Networking
         {
             if(initialized)
             {
-                log.InfoFormat("Beacon transmitting IP Address {0} and friendly name {1}",ipAddress,friendlyName);
-                isTransmitting = true;
-
                 BeaconPacket packet = new BeaconPacket();
                 if(friendlyName != null)
                 {
@@ -82,6 +79,9 @@ namespace RemoteControlServer.Networking
                 {
                     packet.friendlyName = defaultName;
                 }
+                log.InfoFormat("Beacon transmitting IP Address {0} and friendly name {1}", ipAddress, packet.friendlyName);
+                isTransmitting = true;
+
                 packet.ipAddress = ipAddress;
                 packet.count = 0;
 
