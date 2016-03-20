@@ -40,6 +40,7 @@ namespace RemoteControlServer.Networking
             Task.Factory.StartNew(()=>{
                 listener.Start();
                 isListening = true;
+                mProc.StartProcessing();
 
                 while(isListening)
                 {
@@ -61,7 +62,11 @@ namespace RemoteControlServer.Networking
 
                         while (true)
                         {
-                            msgQueue.Add(clientReader.ReadLine());
+                            String command = clientReader.ReadLine();
+                            if (!String.IsNullOrEmpty(command))
+                            {
+                                msgQueue.Add(command);
+                            }
                         }
                     }
                     catch(Exception ex)
