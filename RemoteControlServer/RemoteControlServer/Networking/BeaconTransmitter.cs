@@ -87,6 +87,7 @@ namespace RemoteControlServer.Networking
 
                 Task.Factory.StartNew(() => {
                     server = new UdpClient(50000);
+                    
                     server.JoinMulticastGroup(beaconAddress);
 
                     while(isTransmitting)

@@ -1,6 +1,7 @@
 ﻿using log4net;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -21,11 +22,15 @@ namespace RemoteControlServer.Networking
         private IPAddress connectionIp = IPAddress.Any;
         private static readonly ILog log = LogManager.GetLogger("ConnectionListener");
         private bool isListening = false;
+        private CommandProcessor mProc;
+        private BlockingCollection<string> msgQueue;
 
         public ConnectionListener()
         {
             connectionEndpoint = new IPEndPoint(connectionIp, 50001);
             listener = new TcpListener(connectionEndpoint);
+            msgQueue = new BlockingCollection<string>();
+            mProc = new CommandProcessor(msgQueue);
         }
 
         public void StartListening()
@@ -43,6 +48,7 @@ namespace RemoteControlServer.Networking
                         client = listener.AcceptTcpClient(); // Wait for a client to connect
                         log.Info("Client Connected");
                         StreamWriter clientWriter = new StreamWriter(client.GetStream());
+                        StreamReader clientReader = new StreamReader(client.GetStream());
 
                         // Create and send a response packet
                         ConnectionResponse resp = new ConnectionResponse();
@@ -52,6 +58,11 @@ namespace RemoteControlServer.Networking
                         String responseString = JsonConvert.SerializeObject(resp);
                         clientWriter.WriteLine(responseString);
                         clientWriter.Flush();
+
+                        while (true)
+                        {
+                            msgQueue.Add(clientReader.ReadLine());
+                        }
                     }
                     catch(Exception ex)
                     {
@@ -59,15 +70,14 @@ namespace RemoteControlServer.Networking
                     }
                     finally
                     {
-                        if(client != null)
+                        log.InfoFormat("Shutting down connectionListener");
+                        if (client != null)
                         {
                             client.Close();
                         }
+                        msgQueue.CompleteAdding();
                     }
                 }
-
-                log.InfoFormat("Shutting down connectionListener");
-                client.Close();
             });
         }
 
@@ -75,6 +85,7 @@ namespace RemoteControlServer.Networking
         {
             isListening = false;
             listener.Stop();
+            msgQueue.CompleteAdding();
             log.Info("Connection Listener stopped");
         }
     }
