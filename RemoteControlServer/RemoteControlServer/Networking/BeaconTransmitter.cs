@@ -26,7 +26,7 @@ namespace RemoteControlServer.Networking
         {
             initialized = false;
             isTransmitting = false;
-            beaconAddress = IPAddress.Parse("224.0.0.1");
+            beaconAddress = IPAddress.Parse("239.1.1.1");
             beaconEndpoint = new IPEndPoint(beaconAddress, 50000);
 
             try
